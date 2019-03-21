@@ -1,6 +1,9 @@
 package io.agileinteligence.ppmtool.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import java.util.Date;
 
 @Entity
@@ -9,8 +12,13 @@ public class project {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotBlank(message = "Project Name required")
 	private String projectName;
+	@NotBlank(message = "Project Identifier is required")
+	@Size(min=4, max=5, message="Please use 4 to 5 characters")
+	@Column(updatable = false, unique = true)
 	private String projectIdentifier; 
+	@NotBlank(message = "Project Description is required")
 	private String description;
 	private Date start_date;
 	private Date end_date;
