@@ -36,8 +36,8 @@ public class BacklogController {
         //show delete
         //custom exception
 
-        ResponseEntity<?> erroMap = mapValidationErrorService.MapValidationErrorService(result);
-        if (erroMap != null) return erroMap;
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationErrorService(result);
+        if (errorMap != null) return errorMap;
 
         ProjectTask projectTask1 = projectTaskService.addProjectTask(backlog_id, projectTask);
 
@@ -51,7 +51,6 @@ public class BacklogController {
         return projectTaskService.findBacklogById(backlog_id);
 
     }
-
 
 
 }
