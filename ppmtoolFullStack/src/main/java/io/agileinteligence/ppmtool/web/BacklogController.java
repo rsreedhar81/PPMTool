@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +38,7 @@ public class BacklogController {
         //show delete
         //custom exception
 
-        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationErrorService(result);
         if (errorMap != null) return errorMap;
 
         ProjectTask projectTask1 = projectTaskService.addProjectTask(backlog_id, projectTask);
@@ -72,5 +73,14 @@ public class BacklogController {
         return new ResponseEntity<ProjectTask>(updatedTask,HttpStatus.OK);
 
     }
+
+
+    @DeleteMapping("/{backlog_id}/{pt_id}")
+    public ResponseEntity<?> deleteProjectTask(@PathVariable String backlog_id, @PathVariable String pt_id){
+        projectTaskService.deletePTByProjectSequence(backlog_id, pt_id);
+
+        return new ResponseEntity<String>("Project Task "+pt_id+" was deleted successfully", HttpStatus.OK);
+    }
+
 
 }
